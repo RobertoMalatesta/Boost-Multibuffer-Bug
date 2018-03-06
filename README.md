@@ -18,6 +18,6 @@ There will be an error a few hundred messages in. One of the numbers in the sent
 
 Essentially, the multi_buffer is being passed as buffer.data() to a function, then the function calls buffers_front on the data, and performs a buffer cast to a char array. 
 
-If I change the data structure to a basic_flat_buffer, I don't get an error.
+If I change the data structure to a basic_flat_buffer, I don't get an error. An interesting point is that, when printing out the memory locations, the flatbuffer always has the same memory location for each number on every iteration. For the multibuffer, the memory location value increases.
 
 Any insight would be appreciated.
