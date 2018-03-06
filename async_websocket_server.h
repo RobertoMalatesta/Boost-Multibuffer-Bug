@@ -28,7 +28,7 @@ namespace websocket = boost::beast::websocket;  // from <boost/beast/websocket.h
 class session : public std::enable_shared_from_this<session>
 {
     websocket::stream<tcp::socket> ws_;
-    boost::beast::flat_buffer buffer_;
+    boost::beast::multi_buffer buffer_;
 	boost::asio::strand<
         boost::asio::io_context::executor_type> strand_;
 
@@ -62,4 +62,6 @@ public:
 
 };
 
-void checkValidity (boost::beast::flat_buffer const& buffer);
+template <typename ConstBufferSequence>
+void checkValidity (const ConstBufferSequence & buffer);
+void fail(boost::system::error_code ec, char const* what);

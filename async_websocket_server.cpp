@@ -87,16 +87,16 @@ void session::handle_read(
 
     //send_op <boost::beast::basic_multi_buffer<std::allocator<char>>::const_buffers_type> op(buffer_.data());
     //op();
-    checkValidity(buffer_);
+    checkValidity(buffer_.data());
     on_read(ec, bytes_transferred);
 
 }
 
-
-void checkValidity (boost::beast::flat_buffer const& buffer)
+template <typename ConstBufferSequence>
+void checkValidity (const ConstBufferSequence & buffer)
 {
     //int buf_size = boost::asio::buffer_size(buffer.data());
-    const char* buf = boost::asio::buffer_cast<const char*>(boost::beast::buffers_front(buffer.data()));
+    const char* buf = boost::asio::buffer_cast<const char*>(boost::beast::buffers_front(buffer));
     for (int i = 0; i < 50; i++)
     {
         std::cout << i << " -> " << static_cast<int>(*(buf+i));
